@@ -1,0 +1,283 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.register-page {
+  display: flex;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* =============== LEFT SECTION - BRANDING =============== */
+.register-left {
+  flex: 1;
+  background: linear-gradient(135deg, #009e60 0%, #007a4b 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+}
+
+.brand-content {
+  max-width: 500px;
+}
+
+.brand-logo {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.brand-tagline {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.brand-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  opacity: 0.95;
+}
+
+.features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.05rem;
+}
+
+.feature-icon {
+  width: 28px;
+  height: 28px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* =============== RIGHT SECTION - FORM =============== */
+.register-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9fafb;
+  padding: 3rem 2rem;
+}
+
+.register-form-container {
+  width: 100%;
+  max-width: 480px;
+  background: white;
+  padding: 3rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.form-title {
+  font-size: 2rem;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.form-subtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* =============== USER TYPE SELECTION =============== */
+.user-type-selection {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.user-type-option {
+  flex: 1;
+  cursor: pointer;
+}
+
+.user-type-option input[type="radio"] {
+  display: none;
+}
+
+.type-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.2rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background-color: #f9fafb;
+}
+
+.user-type-option input[type="radio"]:checked + .type-card {
+  border-color: #009e60;
+  background-color: #f0fdf4;
+  box-shadow: 0 4px 12px rgba(0, 158, 96, 0.15);
+}
+
+.type-icon {
+  font-size: 2rem;
+}
+
+.type-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* =============== FORM GROUPS =============== */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #1a1a1a;
+  font-size: 0.95rem;
+}
+
+.required {
+  color: #e53e3e;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: #009e60;
+  box-shadow: 0 0 0 3px rgba(0, 158, 96, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #9ca3af;
+}
+
+/* =============== SUBMIT BUTTON =============== */
+.register-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #009e60 0%, #007a4b 100%);
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.register-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 158, 96, 0.3);
+}
+
+.register-btn:active {
+  transform: translateY(0);
+}
+
+/* =============== FORM FOOTER =============== */
+.form-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.form-footer p {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.link {
+  color: #009e60;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #007a4b;
+  text-decoration: underline;
+}
+
+/* =============== RESPONSIVE DESIGN =============== */
+@media (max-width: 1024px) {
+  .register-page {
+    flex-direction: column;
+  }
+
+  .register-left {
+    padding: 3rem 2rem;
+  }
+
+  .brand-content {
+    text-align: center;
+  }
+
+  .feature-item {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .register-left {
+    padding: 2rem 1.5rem;
+  }
+
+  .brand-logo {
+    font-size: 2rem;
+  }
+
+  .brand-tagline {
+    font-size: 1.5rem;
+  }
+
+  .register-form-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .form-title {
+    font-size: 1.6rem;
+  }
+
+  .user-type-selection {
+    flex-direction: column;
+  }
+}
