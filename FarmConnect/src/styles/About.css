@@ -48,18 +48,32 @@
 }
 
 .get-started-btn {
-  background-color: #009e60;
-  color: white;
+  background: linear-gradient(135deg, #00b56b 0%, #008c57 100%);
+  color: #fff;
   border: none;
-  padding: 0.7rem 1.5rem;
-  border-radius: 25px;
+  padding: 0.75rem 1.7rem;
+  border-radius: 999px;
   cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  box-shadow: 0 10px 20px rgba(0, 158, 96, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
 
 .get-started-btn:hover {
-  background-color: #007a4b;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px rgba(0, 158, 96, 0.32);
+  filter: brightness(1.02);
+}
+
+.get-started-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 12px rgba(0, 158, 96, 0.2);
+}
+
+.get-started-btn:focus-visible {
+  outline: 3px solid rgba(0, 158, 96, 0.35);
+  outline-offset: 3px;
 }
 
 /* =============== HERO SECTION =============== */
@@ -258,37 +272,61 @@
 }
 
 .cta-buttons .primary {
-  background-color: white;
+  background: #ffffff;
   color: #009e60;
   border: none;
-  padding: 1rem 2rem;
-  border-radius: 30px;
+  padding: 1rem 2.2rem;
+  border-radius: 999px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
 
 .cta-buttons .primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.22);
+  filter: brightness(1.02);
+}
+
+.cta-buttons .primary:active {
+  transform: translateY(0);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.18);
+}
+
+.cta-buttons .primary:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 4px;
 }
 
 .cta-buttons .secondary {
-  background: transparent;
-  border: 2px solid white;
-  color: white;
-  padding: 1rem 2rem;
-  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  color: #ffffff;
+  padding: 1rem 2.2rem;
+  border-radius: 999px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .cta-buttons .secondary:hover {
-  background-color: white;
+  background-color: #ffffff;
   color: #009e60;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+}
+
+.cta-buttons .secondary:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cta-buttons .secondary:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 4px;
 }
 
 /* =============== FOOTER =============== */
