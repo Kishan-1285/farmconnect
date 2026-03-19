@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Import axios
+import api from '../../api/client'; // API client
 import '../../styles/Admin/AdminLogin.css';
 
 const AdminLogin = () => {
@@ -22,15 +22,12 @@ const AdminLogin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loading
+    setLoading(true);
     setError('');
 
     try {
-      // Get the API URL from the .env file
-      const apiUrl = `${import.meta.env.VITE_API_URL}/auth/admin/login`;
 
-      // Send the email and password to the backend server
-      const response = await axios.post(apiUrl, {
+      const response = await api.post('/auth/admin/login', {
         email: formData.email,
         password: formData.password
       });
@@ -39,11 +36,11 @@ const AdminLogin = () => {
       if (response.data.success) {
         // Store the token (just like you stored the demo token)
         localStorage.setItem('adminToken', response.data.token);
-        
+
         // Navigate to the dashboard
         navigate('/admin/dashboard');
       }
-      
+
     } catch (err) {
       // If backend sends an error (like "Invalid credentials")
       setError(err.response?.data?.message || 'An error occurred. Please try again.');
@@ -60,7 +57,7 @@ const AdminLogin = () => {
           <h1 className="admin-brand-logo">🌱 Farm Connect</h1>
           <h2 className="admin-brand-tagline">Admin Control Panel</h2>
           <p className="admin-brand-description">
-            Manage your entire Farm Connect platform from one powerful dashboard. 
+            Manage your entire Farm Connect platform from one powerful dashboard.
             Monitor users, oversee transactions, and ensure quality across the community.
           </p>
           <div className="admin-features-list">
@@ -93,7 +90,7 @@ const AdminLogin = () => {
           <form onSubmit={handleSubmit} className="admin-login-form">
             {/* Show error message from the API */}
             {error && <div className="admin-error-message">{error}</div>}
-            
+
             <div className="admin-form-group">
               <label htmlFor="email">
                 Email Address <span className="required">*</span>
@@ -125,9 +122,9 @@ const AdminLogin = () => {
             </div>
 
             {/* Disable button while loading */}
-            <button 
-              type="submit" 
-              className="admin-login-btn" 
+            <button
+              type="submit"
+              className="admin-login-btn"
               disabled={loading}
             >
               {loading ? 'Accessing...' : 'Access Dashboard'}

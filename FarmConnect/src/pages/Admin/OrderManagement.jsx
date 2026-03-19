@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"; // Added useEffect
-import axios from 'axios'; // Import axios
+import api from '../../api/client'; // API client
 import "../../styles/Admin/OrderManagement.css";
 
 export default function OrderManagement() {
@@ -13,8 +13,6 @@ export default function OrderManagement() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   
-  const API_URL = import.meta.env.VITE_API_URL;
-
   // 2. Helper function to get admin token
   const getToken = () => {
     return localStorage.getItem('adminToken');
@@ -37,7 +35,7 @@ export default function OrderManagement() {
       }
 
       // 4. Make authorized GET request
-      const response = await axios.get(`${API_URL}/orders`, {
+      const response = await api.get('/orders', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -57,7 +55,7 @@ export default function OrderManagement() {
       const token = getToken();
       
       // 6. Send PUT request with the new status
-      const response = await axios.put(`${API_URL}/orders/${orderId}`, { status: newStatus }, {
+      const response = await api.put(`/orders/${orderId}`, { status: newStatus }, {
         headers: {
           Authorization: `Bearer ${token}`
         }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"; // Import useState and useEffect
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'; // Import axios
+import api from '../api/client'; // API client
 import "../styles/FarmerDashboard.css";
 
 const FarmerDashboard = () => {
@@ -12,8 +12,6 @@ const FarmerDashboard = () => {
   const [stats, setStats] = useState({ totalCrops: 0, activeListings: 0 });
   const [loading, setLoading] = useState(true);
   
-  const API_URL = import.meta.env.VITE_API_URL;
-
   // 2. Fetch the farmer's stats when the component loads
   useEffect(() => {
     const fetchStats = async () => {
@@ -25,7 +23,7 @@ const FarmerDashboard = () => {
         }
 
         // 3. Call the "my-crops" endpoint
-        const response = await axios.get(`${API_URL}/crops/my-crops/all`, {
+        const response = await api.get('/crops/my-crops/all', {
           headers: {
             Authorization: `Bearer ${token}`
           }

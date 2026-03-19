@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios'; // Import axios
+import api from '../../api/client'; // API client
 import "../../styles/Admin/CropManagement.css";
+import { FALLBACK_CROP_IMAGE, getCropImageUrl } from "../../utils/cropImage";
 
 export default function CropManagement() {
   // 1. Remove sample data, add loading/error states
@@ -14,8 +15,6 @@ export default function CropManagement() {
   const [selectedCrop, setSelectedCrop] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState("view"); // 'view' or 'edit'
-
-  const API_URL = import.meta.env.VITE_API_URL;
 
   // 2. Helper function to get the token
   const getToken = () => {
@@ -39,7 +38,7 @@ export default function CropManagement() {
       }
 
       // 4. Call the admin-specific endpoint
-      const response = await axios.get(`${API_URL}/crops/admin/all`, {
+      const response = await api.get('/crops/admin/all', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -59,7 +58,7 @@ export default function CropManagement() {
       const token = getToken();
       
       // Send a PUT request with only the new status
-      await axios.put(`${API_URL}/crops/${cropId}`, { status: newStatus }, {
+      await api.put(`/crops/${cropId}`, { status: newStatus }, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -83,7 +82,7 @@ export default function CropManagement() {
     if (window.confirm("Are you sure you want to delete this crop?")) {
       try {
         const token = getToken();
-        await axios.delete(`${API_URL}/crops/${cropId}`, {
+        await api.delete(`/crops/${cropId}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -104,7 +103,7 @@ export default function CropManagement() {
     try {
       const token = getToken();
       
-      const response = await axios.put(`${API_URL}/crops/${selectedCrop._id}`, selectedCrop, {
+      const response = await api.put(`/crops/${selectedCrop._id}`, selectedCrop, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -267,7 +266,7 @@ export default function CropManagement() {
                     <div className="crop-info">
                       {/* Use a default emoji or crop.image if it's an emoji */}
                       <span className="crop-icon">
-                        {crop.image.startsWith('data:') ? '🖼️' : (crop.image || '🌾')}
+                        {crop.image && crop.image.startsWith("data:") ? "🖼️" : "🌾"}
                       </span>
                       <span>{crop.name}</span>
                     </div>
@@ -357,7 +356,14 @@ export default function CropManagement() {
                 <div className="crop-details">
                   <div className="detail-row">
                     <span className="detail-label">Crop Image:</span>
-                    <img src={selectedCrop.image} alt={selectedCrop.name} style={{width: '100px', height: '100px', borderRadius: '10px', objectFit: 'cover'}} />
+                    <img
+                      src={getCropImageUrl(selectedCrop)}
+                      alt={selectedCrop.name}
+                      style={{ width: "100px", height: "100px", borderRadius: "10px", objectFit: "cover" }}
+                      onError={(e) => {
+                        e.currentTarget.src = FALLBACK_CROP_IMAGE;
+                      }}
+                    />
                   </div>
                   <div className="detail-row">
                     <span className="detail-label">Crop Name:</span>

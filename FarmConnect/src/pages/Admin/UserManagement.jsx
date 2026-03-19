@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Import axios
+import api from '../../api/client'; // API client
 import '../../styles/Admin/UserManagement.css';
 
 const UserManagement = () => {
@@ -15,9 +15,6 @@ const UserManagement = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState('view'); // 'view' or 'edit'
-
-  // 3. Get the API URL from the .env file
-  const API_URL = import.meta.env.VITE_API_URL;
 
   // 4. Function to get the token from localStorage
   const getToken = () => {
@@ -41,7 +38,7 @@ const UserManagement = () => {
       }
 
       // 6. Make an authorized API call
-      const response = await axios.get(`${API_URL}/users`, {
+      const response = await api.get('/users', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -67,7 +64,7 @@ const UserManagement = () => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
         const token = getToken();
-        await axios.delete(`${API_URL}/users/${userId}`, {
+        await api.delete(`/users/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -94,7 +91,7 @@ const UserManagement = () => {
         // 'type' is already 'Farmer' or 'Consumer' in your state, which is what the controller expects
       };
       
-      const response = await axios.put(`${API_URL}/users/${selectedUser._id}`, updatedData, {
+      const response = await api.put(`/users/${selectedUser._id}`, updatedData, {
         headers: {
           Authorization: `Bearer ${token}`
         }

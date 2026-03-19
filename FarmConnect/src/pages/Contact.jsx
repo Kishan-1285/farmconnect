@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'; // Import axios
+import api from '../api/client'; // API client
 import "../styles/Contact.css";
 
 export default function Contact() {
@@ -16,9 +16,6 @@ export default function Contact() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [submitted, setSubmitted] = useState(false);
-
-  // 2. Get API URL
-  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,7 +41,7 @@ export default function Contact() {
     try {
       // 4. Send the form data to the backend
       // This is a public route, so no token is needed.
-      await axios.post(`${API_URL}/contact`, formData);
+      await api.post('/contact', formData);
 
       setLoading(false);
       setSubmitted(true); // Show success message

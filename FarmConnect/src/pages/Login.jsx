@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import api from '../api/client';
 import "../styles/Login.css";
 
 export default function Login() {
@@ -12,8 +12,6 @@ export default function Login() {
   const [error, setError] = useState("");
   
   const navigate = useNavigate();
-  const API_URL = import.meta.env.VITE_API_URL;
-
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
@@ -31,7 +29,7 @@ export default function Login() {
 
     try {
       // Send login data to the backend
-      const response = await axios.post(`${API_URL}/auth/login`, {
+      const response = await api.post('/auth/login', {
         email,
         password,
         role // 'Farmer' or 'Consumer'

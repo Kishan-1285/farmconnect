@@ -1,8 +1,9 @@
 // src/pages/AvailableCrops.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import api from '../api/client';
 import "../styles/dashboard.css";
+import { FALLBACK_CROP_IMAGE, getCropImageUrl } from "../utils/cropImage";
 
 export default function AvailableCrops() {
   const [search, setSearch] = useState("");
@@ -11,15 +12,13 @@ export default function AvailableCrops() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const API_URL = import.meta.env.VITE_API_URL;
-
   // Fetch all active crops from the API
   useEffect(() => {
     const fetchCrops = async () => {
       setLoading(true);
       setError("");
       try {
-        const response = await axios.get(`${API_URL}/crops`);
+        const response = await api.get('/crops');
         setAllCrops(response.data.data);
         setFilteredCrops(response.data.data);
       } catch (err) {
@@ -84,7 +83,14 @@ export default function AvailableCrops() {
               onClick={() => handleViewDetails(crop)}
               style={{ cursor: "pointer" }}
             >
-              <img src={crop.image} alt={crop.name} className="crop-img" />
+              <img
+                src={getCropImageUrl(crop)}
+                alt={crop.name}
+                className="crop-img"
+                onError={(e) => {
+                  e.currentTarget.src = FALLBACK_CROP_IMAGE;
+                }}
+              />
               <h3>{crop.name}</h3>
               <p>
                 <strong>Price:</strong> ₹{crop.price} / kg

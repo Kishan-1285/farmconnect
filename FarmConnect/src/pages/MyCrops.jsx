@@ -1,8 +1,9 @@
 // src/pages/MyCrops.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'; // Import axios
+import api from '../api/client'; // API client
 import "../styles/dashboard.css"; // Your existing styles
+import { FALLBACK_CROP_IMAGE, getCropImageUrl } from "../utils/cropImage";
 
 const MyCrops = () => {
   // 1. Remove hard-coded data, add loading/error states
@@ -11,8 +12,6 @@ const MyCrops = () => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-  const API_URL = import.meta.env.VITE_API_URL;
-
   // 2. Fetch the farmer's specific crops on component mount
   useEffect(() => {
     const fetchMyCrops = async () => {
@@ -29,7 +28,7 @@ const MyCrops = () => {
         }
 
         // 4. Make the authorized GET request to the 'my-crops' endpoint
-        const response = await axios.get(`${API_URL}/crops/my-crops/all`, {
+        const response = await api.get('/crops/my-crops/all', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -54,7 +53,7 @@ const MyCrops = () => {
       try {
         const token = localStorage.getItem("farmerToken");
         
-        await axios.delete(`${API_URL}/crops/${cropId}`, {
+        await api.delete(`/crops/${cropId}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -119,7 +118,14 @@ const MyCrops = () => {
               onClick={() => handleCropClick(crop)}
               style={{ cursor: 'pointer' }}
             >
-              <img src={crop.image} alt={crop.name} className="crop-image" />
+              <img
+                src={getCropImageUrl(crop)}
+                alt={crop.name}
+                className="crop-image"
+                onError={(e) => {
+                  e.currentTarget.src = FALLBACK_CROP_IMAGE;
+                }}
+              />
               <h3>{crop.name}</h3>
               <p>{crop.description}</p>
               <p>

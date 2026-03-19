@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import api from '../api/client';
 import "../styles/Register.css";
 
 export default function Register() {
@@ -14,9 +14,6 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   
-  // Use VITE_API_URL from your .env file
-  const API_URL = import.meta.env.VITE_API_URL;
-
   const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
 
   const handleRegister = async (e) => {
@@ -52,7 +49,7 @@ export default function Register() {
       };
 
       // Send the POST request to the backend
-      await axios.post(`${API_URL}/auth/register`, newUser);
+      await api.post('/auth/register', newUser);
 
       setLoading(false);
       alert("✅ Registration successful! You can now login.");

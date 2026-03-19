@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'; // Import axios
+import api from '../api/client'; // API client
 import "../styles/ConsumerDashboard.css";
+import { FALLBACK_CROP_IMAGE, getCropImageUrl } from "../utils/cropImage";
 
 export default function ConsumerDashboard() {
   const navigate = useNavigate();
@@ -12,9 +13,6 @@ export default function ConsumerDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Get the API URL from the .env file
-  const API_URL = import.meta.env.VITE_API_URL;
-
   // 2. Fetch crops from the backend when the component mounts
   useEffect(() => {
     const fetchCrops = async () => {
@@ -22,7 +20,7 @@ export default function ConsumerDashboard() {
       setError("");
       try {
         // 3. Make the API call to the public /api/crops endpoint
-        const response = await axios.get(`${API_URL}/crops`);
+        const response = await api.get('/crops');
         
         // 4. Save the data from the API into state
         setAvailableCrops(response.data.data);
@@ -93,7 +91,14 @@ export default function ConsumerDashboard() {
             onClick={() => handleCropClick(crop._id)}
           >
             <div className="crop-image-wrapper">
-              <img src={crop.image} alt={crop.name} className="crop-image" />
+              <img
+                src={getCropImageUrl(crop)}
+                alt={crop.name}
+                className="crop-image"
+                onError={(e) => {
+                  e.currentTarget.src = FALLBACK_CROP_IMAGE;
+                }}
+              />
               <div className="crop-badge">Fresh</div>
             </div>
             

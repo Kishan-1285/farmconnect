@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"; // Import useEffect
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'; // Import axios
+import api from '../../api/client'; // API client
 import UserManagement from "./UserManagement";
 import CropManagement from "./CropManagement";
 import OrderManagement from "./OrderManagement";
@@ -21,8 +21,6 @@ export default function AdminDashboard() {
   });
   const [loadingStats, setLoadingStats] = useState(true);
   
-  const API_URL = import.meta.env.VITE_API_URL;
-
   // 2. Fetch stats when the dashboard component mounts
   useEffect(() => {
     // Only fetch stats if the user is on the dashboard tab
@@ -41,7 +39,7 @@ export default function AdminDashboard() {
         return;
       }
 
-      const response = await axios.get(`${API_URL}/stats/dashboard`, {
+      const response = await api.get('/stats/dashboard', {
         headers: {
           Authorization: `Bearer ${token}`
         }

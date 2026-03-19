@@ -1,8 +1,9 @@
 // src/pages/CropDetails.jsx
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from 'axios'; // Import axios
+import api from '../api/client'; // API client
 import "../styles/cropdetails.css";
+import { FALLBACK_CROP_IMAGE, getCropImageUrl } from "../utils/cropImage";
 
 const CropDetails = () => {
   const { id } = useParams(); // Get the crop ID from the URL
@@ -15,8 +16,6 @@ const CropDetails = () => {
   
   const [quantity, setQuantity] = useState(1);
   
-  const API_URL = import.meta.env.VITE_API_URL;
-
   // 2. Fetch the specific crop data from the API on mount
   useEffect(() => {
     const fetchCrop = async () => {
@@ -24,7 +23,7 @@ const CropDetails = () => {
       setError("");
       try {
         // 3. Make the API call to /api/crops/:id
-        const response = await axios.get(`${API_URL}/crops/${id}`);
+        const response = await api.get(`/crops/${id}`);
         setCrop(response.data.data); // Save the single crop object
         
       } catch (err) {
@@ -128,7 +127,14 @@ const CropDetails = () => {
       <div className="crop-details-container">
         <div className="crop-details-content">
           <div className="crop-image-section">
-            <img src={crop.image} alt={crop.name} className="crop-detail-image" />
+            <img
+              src={getCropImageUrl(crop)}
+              alt={crop.name}
+              className="crop-detail-image"
+              onError={(e) => {
+                e.currentTarget.src = FALLBACK_CROP_IMAGE;
+              }}
+            />
           </div>
 
           <div className="crop-info-section">

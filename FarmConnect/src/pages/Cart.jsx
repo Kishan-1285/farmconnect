@@ -1,7 +1,8 @@
 // src/pages/Cart.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'; // Import axios
+import api from '../api/client'; // API client
+import { FALLBACK_CROP_IMAGE, getCropImageUrl } from "../utils/cropImage";
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState([]);
@@ -10,9 +11,6 @@ export default function Cart() {
   // 1. Add loading and error states for checkout
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
-  // Get the API URL
-  const API_URL = import.meta.env.VITE_API_URL;
 
   // This logic remains the same - it reads from localStorage
   useEffect(() => {
@@ -75,7 +73,7 @@ export default function Cart() {
       };
 
       // 5. Create order first
-      const response = await axios.post(`${API_URL}/orders`, orderData, {
+      const response = await api.post('/orders', orderData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -223,8 +221,11 @@ export default function Cart() {
 
                 {/* Image */}
                 <img
-                  src={item.image}
+                  src={getCropImageUrl({ image: item.image, cropName: item.cropName })}
                   alt={item.cropName}
+                  onError={(e) => {
+                    e.currentTarget.src = FALLBACK_CROP_IMAGE;
+                  }}
                   style={{
                     width: "150px",
                     height: "150px",
