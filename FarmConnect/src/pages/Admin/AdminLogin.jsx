@@ -13,7 +13,8 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false); // Add loading state for button
 
   const handleChange = (e) => {
-    setFormData({
+    setFormData({ 
+      
       ...formData,
       [e.target.name]: e.target.value
     });
