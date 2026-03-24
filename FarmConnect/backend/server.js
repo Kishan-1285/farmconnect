@@ -8,7 +8,11 @@ const dotenv = require('dotenv');
 // --- 1. CONFIGURATION & SETUP ---
 dotenv.config();
 const app = express();
-app.use(cors());
+const corsOrigin = process.env.CORS_ORIGIN;
+const corsOptions = corsOrigin
+  ? { origin: corsOrigin.split(',').map((o) => o.trim()).filter(Boolean) }
+  : undefined;
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' })); // For Base64 images
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
