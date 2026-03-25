@@ -1,5 +1,9 @@
 @import "./styles/theme.css";
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: "Poppins", sans-serif;
   margin: 0;

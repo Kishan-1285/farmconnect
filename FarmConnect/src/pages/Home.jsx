@@ -11,9 +11,15 @@ export default function Home() {
       <nav className="navbar">
         <div className="logo">🌱 Farm Connect</div>
         <ul className="nav-links">
-          <li>Features</li>
-          <li>How It Works</li>
-          <li>Benefits</li>
+          <li>
+            <a className="nav-link" href="#features">Features</a>
+          </li>
+          <li>
+            <a className="nav-link" href="#how-it-works">How It Works</a>
+          </li>
+          <li>
+            <a className="nav-link" href="#benefits">Benefits</a>
+          </li>
           <button className="get-started-btn" onClick={() => navigate("/register")}>Get Started</button>
         </ul>
       </nav>
@@ -40,7 +46,7 @@ export default function Home() {
       </section>
 
       {/* Why Choose */}
-      <section className="why-choose">
+      <section className="why-choose" id="features">
         <h2>Why Choose Farm Connect?</h2>
         <p className="subtitle">We bring transparency, quality, and sustainability to your food choices</p>
 
@@ -93,7 +99,7 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section className="how-it-works">
+      <section className="how-it-works" id="how-it-works">
         <h2>How It Works</h2>
         <p className="subtitle">Simple, transparent, and efficient</p>
         
@@ -131,7 +137,7 @@ export default function Home() {
       </section>
 
       {/* Supporting Local Farmers Section */}
-      <section className="support-section">
+      <section className="support-section" id="benefits">
         <div className="support-container">
           <div className="support-img">
             <img
