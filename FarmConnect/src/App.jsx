@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Privacy from "./pages/Privacy";
+import ForgotPassword from "./pages/ForgotPassword";
 import FarmerDashboard from "./pages/FarmerDashboard";
 import ConsumerDashboard from "./pages/ConsumerDashboard";
 import AddCrop from "./pages/AddCrop";
@@ -25,6 +26,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/privacy" element={<Privacy />} />
