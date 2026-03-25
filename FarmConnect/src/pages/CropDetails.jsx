@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from '../api/client'; // API client
-import "../styles/cropdetails.css";
+import "../styles/CropDetails.css";
 import { FALLBACK_CROP_IMAGE, getCropImageUrl } from "../utils/cropImage";
 
 const CropDetails = () => {
